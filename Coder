@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FortifyCrypt - Chiffrez vos messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            margin: 0;
+        }
+
+        header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        textarea, input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #2C3E50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1A252F;
+        }
+
+        .cta {
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #2C3E50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FortifyCrypt</h1>
+        <p>Chiffrez et protégez vos messages avec FortifyCrypt</p>
+    </header>
+
+    <div class="container">
+        <h2><i class="fas fa-lock icon"></i> Entrez votre message à chiffrer</h2>
+
+        <textarea id="message" rows="4" placeholder="Tapez votre message ici..."></textarea>
+        <input type="number" id="key" placeholder="Entrez votre clé secrète (ex: 123)"><br>
+
+        <button onclick="chiffrer()"><i class="fas fa-shield-alt"></i> Chiffrer</button>
+        <button onclick="dechiffrer()"><i class="fas fa-unlock-alt"></i> Déchiffrer</button>
+
+        <h3>Résultat :</h3>
+        <textarea id="resultat" rows="4" readonly placeholder="Le résultat s'affichera ici..."></textarea>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 FortifyCrypt. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function chiffrer() {
+            let message = document.getElementById("message").value;
+            let cle = parseInt(document.getElementById("key").value);
+            let texte_chiffre = "";
+
+            for (let i = 0; i < message.length; i++) {
+                texte_chiffre += String.fromCharCode((message.charCodeAt(i) + cle) % 256);
+            }
+
+            document.getElementById("resultat").value = texte_chiffre;
+        }
+
+        function dechiffrer() {
+            let message_chiffre = document.getElementById("message").value;
+            let cle = parseInt(document.getElementById("key").value);
+            let texte_dechiffre = "";
+
+            for (let i = 0; i < message_chiffre.length; i++) {
+                texte_dechiffre += String.fromCharCode((message_chiffre.charCodeAt(i) - cle + 256) % 256);
+            }
+
+            document.getElementById("resultat").value = texte_dechiffre;
+        }
+    </script>
+</body>
+</html>
